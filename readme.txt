@@ -1,4 +1,4 @@
-=== WP Home Test ===
+=== Home Test ===
 
 Contributors:      Max Manuel
 Requires at least: 6.3
@@ -13,7 +13,7 @@ Plugin that shows the commit history of a specific repository.
 
 == Description ==
 
-WP Home Test plugin shows the commit history of a specific repository in the Wordpress dashboard menu page. The test was performed using the Check (PCP) plugin.
+Home Test plugin shows the commit history of a specific repository in the Wordpress dashboard menu page. The test was performed using the Check (PCP) plugin.
 
 == Installation ==
 
@@ -22,13 +22,13 @@ WP Home Test plugin shows the commit history of a specific repository in the Wor
 1. Compress the entire folder.
 2. Visit **Plugins > Add New**.
 2. Upload the zip file.
-3. Install and activate the Plugin WP Home Test.
+3. Install and activate the Plugin Home Test.
 
 = Manual installation =
 
-1. Upload the entire `wp-home-test` folder to the `/wp-content/plugins/` directory.
+1. Upload the entire `home-test` folder to the `/wp-content/plugins/` directory.
 2. Visit **Plugins**.
-3. Activate the Plugin WP Home Test.
+3. Activate the Plugin Home Test.
 
 == Changelog ==
 
