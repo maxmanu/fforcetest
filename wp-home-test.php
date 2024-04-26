@@ -1,12 +1,12 @@
 <?php
 /*
-Plugin Name: WP Home Test
+Plugin Name: Home Test
 Plugin URI: https://maxmanuel.com/
 Description: Plugin that shows git commit history
 Version: 1.0
 Author: Max Manuel
 Author URI: https://maxmanuel.com/
-Text domain: wp-home-test
+Text domain: home-test
 */
 defined('ABSPATH') or die("Por aquí no vamos a ninguna parte");
 define('WPHT_DIR', plugin_dir_path(__FILE__));
@@ -23,24 +23,24 @@ class commits_Settings_Page
 
   public function __construct()
   {
-    add_action('admin_menu', array($this, 'wph_create_settings'));
-    add_action('admin_init', array($this, 'wph_setup_sections'));
-    add_action('admin_init', array($this, 'wph_setup_fields'));
+    add_action('admin_menu', array($this, 'wpht_create_settings'));
+    add_action('admin_init', array($this, 'wpht_setup_sections'));
+    add_action('admin_init', array($this, 'wpht_setup_fields'));
   }
 
-  public function wph_create_settings()
+  public function wpht_create_settings()
   {
     $page_title = 'Commits';
     $menu_title = 'Commits';
     $capability = 'manage_options';
     $slug = 'commits';
-    $callback = array($this, 'wph_settings_content');
+    $callback = array($this, 'wpht_settings_content');
     $icon = 'dashicons-editor-ul';
     $position = 2;
     add_menu_page($page_title, $menu_title, $capability, $slug, $callback, $icon, $position);
   }
 
-  public function wph_settings_content()
+  public function wpht_settings_content()
   {
 
     $username = 'maxmanu';
@@ -76,21 +76,21 @@ class commits_Settings_Page
     </div>
 <?php }
 
-  public function wph_setup_sections()
+  public function wpht_setup_sections()
   {
     add_settings_section('commits_section', '', array(), 'commits');
   }
 
-  public function wph_setup_fields()
+  public function wpht_setup_fields()
   {
     $fields = array();
     foreach ($fields as $field) {
-      add_settings_field($field['id'], $field['label'], array($this, 'wph_field_callback'), 'commits', $field['section'], $field);
+      add_settings_field($field['id'], $field['label'], array($this, 'wpht_field_callback'), 'commits', $field['section'], $field);
       register_setting('commits', $field['id']);
     }
   }
 
-  public function wph_field_callback($field)
+  public function wpht_field_callback($field)
   {
     $value = get_option($field['id']);
     $placeholder = '';

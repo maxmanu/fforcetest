@@ -13,7 +13,7 @@ Plugin that shows the commit history of a specific repository.
 
 == Description ==
 
-WP Home Test plugin shows the commit history of a specific repository in the Wordpress dashboard menu page. 
+WP Home Test plugin shows the commit history of a specific repository in the Wordpress dashboard menu page. The test was performed using the Check (PCP) plugin.
 
 == Installation ==
 
