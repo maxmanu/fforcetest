@@ -53,7 +53,10 @@ class commits_Settings_Page
         $body = wp_remote_retrieve_body($response);
         $commits = json_decode($body, true);
         foreach ($commits as $commit) {
-          echo "<strong>Commit:</strong> " . esc_html(substr($commit['sha'], 0, 7)) . "<br>";
+          $commit_sha = $commit['sha'];
+          $commit_url = "https://github.com/{$username}/{$repo}/commit/{$commit_sha}";
+
+          echo "<strong>Commit:</strong> <a href='{" . esc_url($commit_url) . "}' target='_blank'>" . esc_html(substr($commit['sha'], 0, 7)) . "</a><br>";
           echo "<strong>Fecha:</strong> " . esc_html($commit['commit']['author']['date']) . "<br>";
           echo "<strong>Autor:</strong> " . esc_html($commit['commit']['author']['name']) . "<br>";
           echo "<strong>Mensaje:</strong> " . esc_html($commit['commit']['message']) . "<br><br>";
