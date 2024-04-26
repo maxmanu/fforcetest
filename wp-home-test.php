@@ -53,10 +53,10 @@ class commits_Settings_Page
         $body = wp_remote_retrieve_body($response);
         $commits = json_decode($body, true);
         foreach ($commits as $commit) {
-          echo "<strong>Commit:</strong> " . substr($commit['sha'], 0, 7) . "<br>";
-          echo "<strong>Fecha:</strong> " . $commit['commit']['author']['date'] . "<br>";
-          echo "<strong>Autor:</strong> " . $commit['commit']['author']['name'] . "<br>";
-          echo "<strong>Mensaje:</strong> " . $commit['commit']['message'] . "<br><br>";
+          echo "<strong>Commit:</strong> " . esc_html(substr($commit['sha'], 0, 7)) . "<br>";
+          echo "<strong>Fecha:</strong> " . esc_html($commit['commit']['author']['date']) . "<br>";
+          echo "<strong>Autor:</strong> " . esc_html($commit['commit']['author']['name']) . "<br>";
+          echo "<strong>Mensaje:</strong> " . esc_html($commit['commit']['message']) . "<br><br>";
         }
       } else {
         echo "Error al obtener los commits.";
