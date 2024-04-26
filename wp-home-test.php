@@ -41,9 +41,30 @@ class commits_Settings_Page
   }
 
   public function wph_settings_content()
-  { ?>
+  {
+
+    $username = 'maxmanu';
+    $repo = 'fforcetest';
+    $url = "https://api.github.com/repos/{$username}/{$repo}/commits";
+    $response = wp_remote_get($url);
+
+?>
     <div class="wrap">
       <h1>Commits</h1>
+      <?php
+      if (!is_wp_error($response) && wp_remote_retrieve_response_code($response) === 200) {
+        $body = wp_remote_retrieve_body($response);
+        $commits = json_decode($body, true);
+        foreach ($commits as $commit) {
+          echo "<strong>Commit:</strong> " . substr($commit['sha'], 0, 7) . "<br>";
+          echo "<strong>Fecha:</strong> " . $commit['commit']['author']['date'] . "<br>";
+          echo "<strong>Autor:</strong> " . $commit['commit']['author']['name'] . "<br>";
+          echo "<strong>Mensaje:</strong> " . $commit['commit']['message'] . "<br><br>";
+        }
+      } else {
+        echo "Error al obtener los commits.";
+      }
+      ?>
       <?php settings_errors(); ?>
       <form method="POST" action="options.php">
         <?php
@@ -52,45 +73,45 @@ class commits_Settings_Page
         // submit_button();
         ?>
       </form>
-    </div> <?php
-          }
+    </div>
+<?php }
 
-          public function wph_setup_sections()
-          {
-            add_settings_section('commits_section', '', array(), 'commits');
-          }
+  public function wph_setup_sections()
+  {
+    add_settings_section('commits_section', '', array(), 'commits');
+  }
 
-          public function wph_setup_fields()
-          {
-            $fields = array();
-            foreach ($fields as $field) {
-              add_settings_field($field['id'], $field['label'], array($this, 'wph_field_callback'), 'commits', $field['section'], $field);
-              register_setting('commits', $field['id']);
-            }
-          }
+  public function wph_setup_fields()
+  {
+    $fields = array();
+    foreach ($fields as $field) {
+      add_settings_field($field['id'], $field['label'], array($this, 'wph_field_callback'), 'commits', $field['section'], $field);
+      register_setting('commits', $field['id']);
+    }
+  }
 
-          public function wph_field_callback($field)
-          {
-            $value = get_option($field['id']);
-            $placeholder = '';
-            if (isset($field['placeholder'])) {
-              $placeholder = $field['placeholder'];
-            }
-            switch ($field['type']) {
-              default:
-                printf(
-                  '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />',
-                  $field['id'],
-                  $field['type'],
-                  $placeholder,
-                  $value
-                );
-            }
-            if (isset($field['desc'])) {
-              if ($desc = $field['desc']) {
-                printf('<p class="description">%s </p>', $desc);
-              }
-            }
-          }
-        }
-        new commits_Settings_Page();
+  public function wph_field_callback($field)
+  {
+    $value = get_option($field['id']);
+    $placeholder = '';
+    if (isset($field['placeholder'])) {
+      $placeholder = $field['placeholder'];
+    }
+    switch ($field['type']) {
+      default:
+        printf(
+          '<input name="%1$s" id="%1$s" type="%2$s" placeholder="%3$s" value="%4$s" />',
+          $field['id'],
+          $field['type'],
+          $placeholder,
+          $value
+        );
+    }
+    if (isset($field['desc'])) {
+      if ($desc = $field['desc']) {
+        printf('<p class="description">%s </p>', $desc);
+      }
+    }
+  }
+}
+new commits_Settings_Page();
